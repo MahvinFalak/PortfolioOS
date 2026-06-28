@@ -8,6 +8,7 @@ const envSchema = z.object({
   PORT: z.coerce.number().positive(),
   APP_NAME: z.string().min(1),
   API_PREFIX: z.string().min(1),
+  MONGODB_URI: z.string().min(1),
 });
 
 export const env = envSchema.parse(process.env);

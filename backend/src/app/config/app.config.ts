@@ -5,4 +5,7 @@ export const appConfig = {
   environment: env.NODE_ENV,
   port: env.PORT,
   apiPrefix: env.API_PREFIX,
+  database: {
+    uri: env.MONGODB_URI,
+},
 } as const;
