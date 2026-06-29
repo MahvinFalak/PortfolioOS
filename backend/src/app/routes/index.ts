@@ -2,6 +2,8 @@ import { Router, Request, Response } from 'express';
 
 import authRoutes from '../../modules/auth/routes/auth.routes';
 
+import profileRoutes from '../../modules/profile/routes';
+
 const router = Router();
 
 /**
@@ -18,4 +20,8 @@ router.get('/health', (_req: Request, res: Response) => {
  * Authentication Routes
  */
 router.use('/api/auth', authRoutes);
+/**
+ * Profile
+ */
+router.use('/api/profile', profileRoutes);
 export default router;
