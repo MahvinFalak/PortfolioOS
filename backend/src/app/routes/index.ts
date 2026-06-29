@@ -4,6 +4,8 @@ import authRoutes from '../../modules/auth/routes/auth.routes';
 
 import profileRoutes from '../../modules/profile/routes';
 
+import skillRoutes from '../../modules/skills/routes';
+
 const router = Router();
 
 /**
@@ -24,4 +26,8 @@ router.use('/api/auth', authRoutes);
  * Profile
  */
 router.use('/api/profile', profileRoutes);
+/**
+ * Skills
+ */
+router.use('/api/skills', skillRoutes);
 export default router;
