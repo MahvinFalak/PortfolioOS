@@ -1,17 +1,19 @@
-import { Schema, model, Document } from 'mongoose';
+import { HydratedDocument, Schema, model } from 'mongoose';
 
 export enum UserRole {
   ADMIN = 'admin',
 }
 
-export interface IUser extends Document {
+export interface IUser {
   email: string;
   password: string;
   role: UserRole;
-  refreshToken?: string | null;
+  refreshToken: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type UserDocument = HydratedDocument<IUser>;
 
 const userSchema = new Schema<IUser>(
   {

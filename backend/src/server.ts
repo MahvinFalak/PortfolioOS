@@ -5,6 +5,9 @@ import {
   disconnectDatabase,
 } from './app/database';
 import { Logger } from './app/utils/logger';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const startServer = async (): Promise<void> => {
   await connectDatabase();

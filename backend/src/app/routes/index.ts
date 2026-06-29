@@ -1,5 +1,7 @@
 import { Router, Request, Response } from 'express';
 
+import authRoutes from '../../modules/auth/routes/auth.routes';
+
 const router = Router();
 
 /**
@@ -12,5 +14,8 @@ router.get('/health', (_req: Request, res: Response) => {
     timestamp: new Date().toISOString(),
   });
 });
-
+/**
+ * Authentication Routes
+ */
+router.use('/api/auth', authRoutes);
 export default router;
