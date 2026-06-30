@@ -116,4 +116,23 @@ export class AuthController {
       next(error);
     }
   };
+  /**
+ * Logout User
+ */
+public logout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    await this.authService.logout(req.user!.userId);
+
+    res.status(200).json({
+      success: true,
+      message: 'Logged out successfully.',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 }

@@ -118,36 +118,16 @@ export class AuthService {
       throw new UnauthorizedException('Invalid or expired refresh token.');
     }
   }
-  // async refreshToken(
-  //   refreshTokenDto: RefreshTokenDto,
-  // ): Promise<AuthResponseDto> {
-  //   const payload = verifyToken(refreshTokenDto.refreshToken);
+  /**
+ * Logout User
+ */
+public async logout(userId: string): Promise<void> {
+  const user = await this.userRepository.findById(userId);
 
-  //   const user = await this.userRepository.findById(
-  //     payload.userId,
-  //   );
+  if (!user) {
+    throw new UnauthorizedException('Invalid user.');
+  }
 
-  //   if (!user) {
-  //     // throw new Error('User not found.');
-  //         throw new NotFoundException('User not found.');
-
-  //   }
-
-  //   if (user.refreshToken !== refreshTokenDto.refreshToken) {
-  //     // throw new Error('Invalid refresh token.');
-  //     throw new UnauthorizedException(
-  //   'Invalid refresh token.',
-  // );
-  //   }
-
-  //   const accessToken = generateAccessToken(
-  //     user.id,
-  //     user.role,
-  //   );
-
-  //   return {
-  //     accessToken,
-  //     refreshToken: refreshTokenDto.refreshToken,
-  //   };
-  // }
+  await this.userRepository.updateRefreshToken(userId, null);
+}
 }

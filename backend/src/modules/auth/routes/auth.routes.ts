@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { AuthController } from '../controllers/auth.controller';
+import { authenticate } from '../../../app/middlewares/auth.middleware';
 
 const router = Router();
 
@@ -20,5 +21,9 @@ router.post('/login', authController.login);
  * POST /api/auth/refresh
  */
 router.post('/refresh', authController.refreshToken);
+/**
+ * Logout User
+ */
+router.post('/logout', authenticate, authController.logout);
 
 export default router;
