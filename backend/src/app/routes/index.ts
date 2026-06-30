@@ -10,6 +10,7 @@ import projectRoutes from '../../modules/projects/routes';
 import resumeRoutes from '../../modules/resume/routes';
 import certificationRoutes from '../../modules/certifications/routes';
 import socialLinkRoutes from '../../modules/social-links/routes';
+import educationRoutes from '../../modules/education/routes';
 
 const router = Router();
 
@@ -58,4 +59,10 @@ router.use('/api/certifications', certificationRoutes);
  * Social Links
  */
 router.use('/api/social-links', socialLinkRoutes);
+/**
+ * Education
+ */
+router.use('/api/education', educationRoutes);
+
+
 export default router;
