@@ -11,46 +11,26 @@ const skillController = new SkillController();
 /**
  * Create Skill
  */
-router.post(
-  '/',
-  authenticate,
-  skillController.createSkill,
-);
+router.post('/', authenticate, skillController.createSkill);
 
 /**
  * Get All Skills
  */
-router.get(
-  '/',
-  authenticate,
-  skillController.getSkills,
-);
+router.get('/', authenticate, skillController.getSkills);
 
 /**
  * Get Skill By ID
  */
-router.get(
-  '/:id',
-  authenticate,
-  skillController.getSkillById,
-);
+router.get('/:id', authenticate, skillController.getSkillById);
 
 /**
  * Update Skill
  */
-router.put(
-  '/:id',
-  authenticate,
-  skillController.updateSkill,
-);
+router.put('/:id', authenticate, skillController.updateSkill);
 
 /**
  * Delete Skill
  */
-router.delete(
-  '/:id',
-  authenticate,
-  skillController.deleteSkill,
-);
+router.delete('/:id', authenticate, skillController.deleteSkill);
 
 export default router;

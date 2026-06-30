@@ -1,9 +1,6 @@
 import app from './app';
 import { appConfig } from './app/config';
-import {
-  connectDatabase,
-  disconnectDatabase,
-} from './app/database';
+import { connectDatabase, disconnectDatabase } from './app/database';
 import { Logger } from './app/utils/logger';
 import dotenv from 'dotenv';
 

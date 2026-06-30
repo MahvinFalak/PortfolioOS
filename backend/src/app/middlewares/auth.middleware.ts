@@ -9,22 +9,16 @@ export const authenticate = (
   next: NextFunction,
 ): void => {
   try {
-    const authorizationHeader =
-      req.headers.authorization;
+    const authorizationHeader = req.headers.authorization;
 
     if (!authorizationHeader) {
-      throw new UnauthorizedException(
-        'Authorization header is missing.',
-      );
+      throw new UnauthorizedException('Authorization header is missing.');
     }
 
-    const [scheme, token] =
-      authorizationHeader.split(' ');
+    const [scheme, token] = authorizationHeader.split(' ');
 
     if (scheme !== 'Bearer' || !token) {
-      throw new UnauthorizedException(
-        'Invalid authorization header.',
-      );
+      throw new UnauthorizedException('Invalid authorization header.');
     }
 
     const decoded = verifyToken(token);
@@ -36,9 +30,7 @@ export const authenticate = (
     next(
       error instanceof UnauthorizedException
         ? error
-        : new UnauthorizedException(
-            'Invalid or expired access token.',
-          ),
+        : new UnauthorizedException('Invalid or expired access token.'),
     );
   }
 };

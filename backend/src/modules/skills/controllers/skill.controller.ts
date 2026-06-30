@@ -3,10 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { BadRequestException } from '../../../app/exceptions/bad-request.exception';
 import { ParamsDictionary } from 'express-serve-static-core';
 
-import {
-  CreateSkillDto,
-  UpdateSkillDto,
-} from '../dto/skill.dto';
+import { CreateSkillDto, UpdateSkillDto } from '../dto/skill.dto';
 
 import { SkillService } from '../services/skill.service';
 
@@ -20,8 +17,7 @@ interface SkillParams extends ParamsDictionary {
 }
 
 export class SkillController {
-  private readonly skillService =
-    new SkillService();
+  private readonly skillService = new SkillService();
 
   /**
    * Create Skill
@@ -32,23 +28,18 @@ export class SkillController {
     next: NextFunction,
   ): Promise<void> => {
     try {
-      const validationResult =
-        createSkillSchema.safeParse(req.body);
+      const validationResult = createSkillSchema.safeParse(req.body);
 
       if (!validationResult.success) {
-        throw new BadRequestException(
-          validationResult.error.issues[0].message,
-        );
+        throw new BadRequestException(validationResult.error.issues[0].message);
       }
 
-      const skillDto: CreateSkillDto =
-        validationResult.data;
+      const skillDto: CreateSkillDto = validationResult.data;
 
-      const skill =
-        await this.skillService.createSkill(
-          req.user!.userId,
-          skillDto,
-        );
+      const skill = await this.skillService.createSkill(
+        req.user!.userId,
+        skillDto,
+      );
 
       res.status(201).json({
         success: true,
@@ -69,10 +60,7 @@ export class SkillController {
     next: NextFunction,
   ): Promise<void> => {
     try {
-      const skills =
-        await this.skillService.getSkills(
-          req.user!.userId,
-        );
+      const skills = await this.skillService.getSkills(req.user!.userId);
 
       res.status(200).json({
         success: true,
@@ -87,17 +75,16 @@ export class SkillController {
   /**
    * Get Skill By ID
    */
- public getSkillById = async (
-  req: Request<SkillParams>,
-  res: Response,
-  next: NextFunction,
-): Promise<void> => {
+  public getSkillById = async (
+    req: Request<SkillParams>,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     try {
-      const skill =
-        await this.skillService.getSkillById(
-          req.user!.userId,
-          req.params.id,
-        );
+      const skill = await this.skillService.getSkillById(
+        req.user!.userId,
+        req.params.id,
+      );
 
       res.status(200).json({
         success: true,
@@ -112,30 +99,25 @@ export class SkillController {
   /**
    * Update Skill
    */
- public updateSkill = async (
-  req: Request<SkillParams>,
-  res: Response,
-  next: NextFunction,
-): Promise<void> => {
+  public updateSkill = async (
+    req: Request<SkillParams>,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     try {
-      const validationResult =
-        updateSkillSchema.safeParse(req.body);
+      const validationResult = updateSkillSchema.safeParse(req.body);
 
       if (!validationResult.success) {
-        throw new BadRequestException(
-          validationResult.error.issues[0].message,
-        );
+        throw new BadRequestException(validationResult.error.issues[0].message);
       }
 
-      const skillDto: UpdateSkillDto =
-        validationResult.data;
+      const skillDto: UpdateSkillDto = validationResult.data;
 
-      const skill =
-        await this.skillService.updateSkill(
-          req.user!.userId,
-          req.params.id,
-          skillDto,
-        );
+      const skill = await this.skillService.updateSkill(
+        req.user!.userId,
+        req.params.id,
+        skillDto,
+      );
 
       res.status(200).json({
         success: true,
@@ -150,16 +132,13 @@ export class SkillController {
   /**
    * Delete Skill
    */
-public deleteSkill = async (
-  req: Request<SkillParams>,
-  res: Response,
-  next: NextFunction,
-): Promise<void> => {
+  public deleteSkill = async (
+    req: Request<SkillParams>,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     try {
-      await this.skillService.deleteSkill(
-        req.user!.userId,
-        req.params.id,
-      );
+      await this.skillService.deleteSkill(req.user!.userId, req.params.id);
 
       res.status(200).json({
         success: true,

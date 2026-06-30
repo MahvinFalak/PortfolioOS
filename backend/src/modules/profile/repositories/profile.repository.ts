@@ -8,7 +8,7 @@ import {
 } from '../dto/profile.dto';
 
 export class ProfileRepository {
-      /**
+  /**
    * Create Profile
    */
   public async create(
@@ -20,8 +20,9 @@ export class ProfileRepository {
       ...profile,
     });
   }
-    /**
-   * Find Profile by User ID
+
+  /**
+   * Find Profile By User ID
    */
   public async findByUserId(
     userId: Types.ObjectId,
@@ -30,7 +31,8 @@ export class ProfileRepository {
       userId,
     });
   }
-    /**
+
+  /**
    * Update Profile
    */
   public async update(
@@ -49,7 +51,8 @@ export class ProfileRepository {
       },
     );
   }
-    /**
+
+  /**
    * Delete Profile
    */
   public async delete(
@@ -59,4 +62,4 @@ export class ProfileRepository {
       userId,
     });
   }
-  }
+}

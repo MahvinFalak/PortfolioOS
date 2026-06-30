@@ -22,10 +22,7 @@ const formatFieldName = (field: string): string => {
 /**
  * Validates request data using a Zod schema.
  */
-export const validateSchema = <T>(
-  schema: ZodSchema<T>,
-  data: unknown,
-): T => {
+export const validateSchema = <T>(schema: ZodSchema<T>, data: unknown): T => {
   const result = schema.safeParse(data);
 
   if (result.success) {
@@ -36,13 +33,8 @@ export const validateSchema = <T>(
 
   let message = issue.message;
 
-  if (
-    issue.code === 'invalid_type' &&
-    issue.path.length > 0
-  ) {
-    const fieldName = formatFieldName(
-      String(issue.path[0]),
-    );
+  if (issue.code === 'invalid_type' && issue.path.length > 0) {
+    const fieldName = formatFieldName(String(issue.path[0]));
 
     message = `${fieldName} is required.`;
   }

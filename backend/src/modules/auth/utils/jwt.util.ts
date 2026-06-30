@@ -1,18 +1,15 @@
-import jwt, {
-  JwtPayload,
-  SignOptions,
-} from 'jsonwebtoken';
+import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken';
 import { appConfig } from '../../../app/config';
 
 const JWT_SECRET = appConfig.jwt.secret;
 
-const ACCESS_TOKEN_EXPIRY =
-  appConfig.jwt.accessTokenExpiry as SignOptions['expiresIn'];
+const ACCESS_TOKEN_EXPIRY = appConfig.jwt
+  .accessTokenExpiry as SignOptions['expiresIn'];
 
-const REFRESH_TOKEN_EXPIRY =
-  appConfig.jwt.refreshTokenExpiry as SignOptions['expiresIn'];
+const REFRESH_TOKEN_EXPIRY = appConfig.jwt
+  .refreshTokenExpiry as SignOptions['expiresIn'];
 
-  export interface AuthTokenPayload extends JwtPayload {
+export interface AuthTokenPayload extends JwtPayload {
   userId: string;
   role?: string;
 }
@@ -20,10 +17,7 @@ const REFRESH_TOKEN_EXPIRY =
 /**
  * Generate JWT Access Token.
  */
-export const generateAccessToken = (
-  userId: string,
-  role: string,
-): string => {
+export const generateAccessToken = (userId: string, role: string): string => {
   return jwt.sign(
     {
       userId,
@@ -39,9 +33,7 @@ export const generateAccessToken = (
 /**
  * Generate JWT Refresh Token.
  */
-export const generateRefreshToken = (
-  userId: string,
-): string => {
+export const generateRefreshToken = (userId: string): string => {
   return jwt.sign(
     {
       userId,
@@ -56,11 +48,6 @@ export const generateRefreshToken = (
 /**
  * Verify JWT Token.
  */
-export const verifyToken = (
-  token: string,
-): AuthTokenPayload => {
-  return jwt.verify(
-    token,
-    JWT_SECRET,
-  ) as AuthTokenPayload;
+export const verifyToken = (token: string): AuthTokenPayload => {
+  return jwt.verify(token, JWT_SECRET) as AuthTokenPayload;
 };

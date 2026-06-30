@@ -1,9 +1,11 @@
-import { LoginDto, RefreshTokenDto, RegisterDto, AuthResponseDto } from '../dto/auth.dto';
-import { UserRepository } from '../repositories/user.repository';
 import {
-  comparePassword,
-  hashPassword,
-} from '../utils/password.util';
+  LoginDto,
+  RefreshTokenDto,
+  RegisterDto,
+  AuthResponseDto,
+} from '../dto/auth.dto';
+import { UserRepository } from '../repositories/user.repository';
+import { comparePassword, hashPassword } from '../utils/password.util';
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -19,9 +21,7 @@ export class AuthService {
   /**
    * Register a new user.
    */
-  async register(
-    registerDto: RegisterDto,
-  ): Promise<AuthResponseDto> {
+  async register(registerDto: RegisterDto): Promise<AuthResponseDto> {
     const existingUser = await this.userRepository.findByEmail(
       registerDto.email,
     );
@@ -38,17 +38,11 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const accessToken = generateAccessToken(
-      user.id,
-      user.role,
-    );
+    const accessToken = generateAccessToken(user.id, user.role);
 
     const refreshToken = generateRefreshToken(user.id);
 
-    await this.userRepository.updateRefreshToken(
-      user.id,
-      refreshToken,
-    );
+    await this.userRepository.updateRefreshToken(user.id, refreshToken);
 
     return {
       accessToken,
@@ -59,12 +53,8 @@ export class AuthService {
   /**
    * Login an existing user.
    */
-  async login(
-    loginDto: LoginDto,
-  ): Promise<AuthResponseDto> {
-    const user = await this.userRepository.findByEmail(
-      loginDto.email,
-    );
+  async login(loginDto: LoginDto): Promise<AuthResponseDto> {
+    const user = await this.userRepository.findByEmail(loginDto.email);
 
     if (!user) {
       // throw new Error('Invalid email or password.');
@@ -80,17 +70,11 @@ export class AuthService {
       throw new Error('Invalid email or password.');
     }
 
-    const accessToken = generateAccessToken(
-      user.id,
-      user.role,
-    );
+    const accessToken = generateAccessToken(user.id, user.role);
 
     const refreshToken = generateRefreshToken(user.id);
 
-    await this.userRepository.updateRefreshToken(
-      user.id,
-      refreshToken,
-    );
+    await this.userRepository.updateRefreshToken(user.id, refreshToken);
 
     return {
       accessToken,
@@ -98,81 +82,72 @@ export class AuthService {
     };
   }
 
-/**
- * Refresh access token.
- */
-async refreshToken(
-  refreshTokenDto: RefreshTokenDto,
-): Promise<AuthResponseDto> {
-  try {
-    const payload = verifyToken(refreshTokenDto.refreshToken);
+  /**
+   * Refresh access token.
+   */
+  async refreshToken(
+    refreshTokenDto: RefreshTokenDto,
+  ): Promise<AuthResponseDto> {
+    try {
+      const payload = verifyToken(refreshTokenDto.refreshToken);
 
-    const user = await this.userRepository.findById(
-      payload.userId,
-    );
+      const user = await this.userRepository.findById(payload.userId);
 
-    if (!user) {
-      throw new NotFoundException('User not found.');
+      if (!user) {
+        throw new NotFoundException('User not found.');
+      }
+
+      if (user.refreshToken !== refreshTokenDto.refreshToken) {
+        throw new UnauthorizedException('Invalid refresh token.');
+      }
+
+      const accessToken = generateAccessToken(user.id, user.role);
+
+      return {
+        accessToken,
+        refreshToken: refreshTokenDto.refreshToken,
+      };
+    } catch (error) {
+      if (
+        error instanceof NotFoundException ||
+        error instanceof UnauthorizedException
+      ) {
+        throw error;
+      }
+
+      throw new UnauthorizedException('Invalid or expired refresh token.');
     }
-
-    if (user.refreshToken !== refreshTokenDto.refreshToken) {
-      throw new UnauthorizedException(
-        'Invalid refresh token.',
-      );
-    }
-
-    const accessToken = generateAccessToken(
-      user.id,
-      user.role,
-    );
-
-    return {
-      accessToken,
-      refreshToken: refreshTokenDto.refreshToken,
-    };
-  } catch (error) {
-    if (
-      error instanceof NotFoundException ||
-      error instanceof UnauthorizedException
-    ) {
-      throw error;
-    }
-
-    throw new UnauthorizedException(
-      'Invalid or expired refresh token.',
-    );
   }
-}
-// async refreshToken(
-//   refreshTokenDto: RefreshTokenDto,
-// ): Promise<AuthResponseDto> {
-//   const payload = verifyToken(refreshTokenDto.refreshToken);
+  // async refreshToken(
+  //   refreshTokenDto: RefreshTokenDto,
+  // ): Promise<AuthResponseDto> {
+  //   const payload = verifyToken(refreshTokenDto.refreshToken);
 
-//   const user = await this.userRepository.findById(
-//     payload.userId,
-//   );
+  //   const user = await this.userRepository.findById(
+  //     payload.userId,
+  //   );
 
-//   if (!user) {
-//     // throw new Error('User not found.');
-//         throw new NotFoundException('User not found.');
+  //   if (!user) {
+  //     // throw new Error('User not found.');
+  //         throw new NotFoundException('User not found.');
 
-//   }
+  //   }
 
-//   if (user.refreshToken !== refreshTokenDto.refreshToken) {
-//     // throw new Error('Invalid refresh token.');
-//     throw new UnauthorizedException(
-//   'Invalid refresh token.',
-// );
-//   }
+  //   if (user.refreshToken !== refreshTokenDto.refreshToken) {
+  //     // throw new Error('Invalid refresh token.');
+  //     throw new UnauthorizedException(
+  //   'Invalid refresh token.',
+  // );
+  //   }
 
-//   const accessToken = generateAccessToken(
-//     user.id,
-//     user.role,
-//   );
+  //   const accessToken = generateAccessToken(
+  //     user.id,
+  //     user.role,
+  //   );
 
-//   return {
-//     accessToken,
-//     refreshToken: refreshTokenDto.refreshToken,
-//   };
-// }
+  //   return {
+  //     accessToken,
+  //     refreshToken: refreshTokenDto.refreshToken,
+  //   };
+  // }
 }

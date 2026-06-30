@@ -6,7 +6,8 @@ import { ProfileController } from '../controllers/profile.controller';
 
 const router = Router();
 
-const profileController = new ProfileController();
+const profileController =
+  new ProfileController();
 
 /**
  * Create Profile

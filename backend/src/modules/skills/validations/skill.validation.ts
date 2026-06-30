@@ -22,11 +22,7 @@ export const createSkillSchema = z.object({
     .min(1, 'Proficiency must be between 1 and 5.')
     .max(5, 'Proficiency must be between 1 and 5.'),
 
-  icon: z
-    .string()
-    .trim()
-    .url('Please provide a valid icon URL.')
-    .optional(),
+  icon: z.string().trim().url('Please provide a valid icon URL.').optional(),
 
   displayOrder: z
     .number()
@@ -38,5 +34,4 @@ export const createSkillSchema = z.object({
 /**
  * Update Skill Validation
  */
-export const updateSkillSchema =
-  createSkillSchema.partial();
+export const updateSkillSchema = createSkillSchema.partial();

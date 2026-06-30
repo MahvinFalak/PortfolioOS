@@ -9,7 +9,7 @@ const envSchema = z.object({
   APP_NAME: z.string().min(1),
   API_PREFIX: z.string().min(1),
   MONGODB_URI: z.string().min(1),
-    JWT_SECRET: z.string().min(1),
+  JWT_SECRET: z.string().min(1),
 
   JWT_ACCESS_TOKEN_EXPIRY: z.string().default('15m'),
 

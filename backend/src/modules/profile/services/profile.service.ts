@@ -9,19 +9,22 @@ import {
   UpdateProfileDto,
 } from '../dto/profile.dto';
 
+import { ProfileDocument } from '../interfaces/profile.interface';
+
 import { ProfileRepository } from '../repositories/profile.repository';
 
 export class ProfileService {
   private readonly profileRepository =
     new ProfileRepository();
+
   /**
    * Convert Profile Document to Response DTO
    */
   private mapToResponse(
-    profile: any,
+    profile: ProfileDocument,
   ): ProfileResponseDto {
     return {
-      id: profile.id,
+      id: profile._id.toString(),
       userId: profile.userId.toString(),
       firstName: profile.firstName,
       lastName: profile.lastName,
@@ -36,7 +39,8 @@ export class ProfileService {
       updatedAt: profile.updatedAt,
     };
   }
-    /**
+
+  /**
    * Create Profile
    */
   public async createProfile(
@@ -62,7 +66,8 @@ export class ProfileService {
 
     return this.mapToResponse(profile);
   }
-    /**
+
+  /**
    * Get Profile
    */
   public async getProfile(
@@ -81,7 +86,8 @@ export class ProfileService {
 
     return this.mapToResponse(profile);
   }
-    /**
+
+  /**
    * Update Profile
    */
   public async updateProfile(
@@ -102,4 +108,4 @@ export class ProfileService {
 
     return this.mapToResponse(profile);
   }
-  }
+}

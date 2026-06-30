@@ -19,9 +19,6 @@ router.post('/login', authController.login);
  * Refresh Access Token
  * POST /api/auth/refresh
  */
-router.post(
-  '/refresh',
-  authController.refreshToken,
-);
+router.post('/refresh', authController.refreshToken);
 
 export default router;

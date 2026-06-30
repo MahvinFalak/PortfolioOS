@@ -81,6 +81,8 @@ const profileSchema = new Schema<ProfileDocument>(
   },
 );
 
+// profileSchema.path('socialLinks').default({});
+
 export const Profile = model<ProfileDocument>(
   'Profile',
   profileSchema,

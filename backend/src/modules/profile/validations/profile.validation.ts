@@ -3,15 +3,33 @@ import { z } from 'zod';
 /**
  * Social Links
  */
-const socialLinksSchema = z.object({
-  github: z.string().trim().url('Please provide a valid GitHub URL.').optional(),
+const socialLinksSchema = z
+  .object({
+    github: z
+      .string()
+      .trim()
+      .url('Please provide a valid GitHub URL.')
+      .optional(),
 
-  linkedin: z.string().trim().url('Please provide a valid LinkedIn URL.').optional(),
+    linkedin: z
+      .string()
+      .trim()
+      .url('Please provide a valid LinkedIn URL.')
+      .optional(),
 
-  twitter: z.string().trim().url('Please provide a valid Twitter URL.').optional(),
+    twitter: z
+      .string()
+      .trim()
+      .url('Please provide a valid Twitter URL.')
+      .optional(),
 
-  website: z.string().trim().url('Please provide a valid website URL.').optional(),
-});
+    website: z
+      .string()
+      .trim()
+      .url('Please provide a valid website URL.')
+      .optional(),
+  })
+  .strict();
 
 /**
  * Create Profile

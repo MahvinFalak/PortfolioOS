@@ -19,6 +19,8 @@ export enum SkillCategory {
 }
 
 export interface SkillDocument extends Document {
+  _id: Types.ObjectId;
+
   userId: Types.ObjectId;
 
   name: string;

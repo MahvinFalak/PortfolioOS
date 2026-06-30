@@ -1,9 +1,6 @@
 import { Types } from 'mongoose';
 
-import {
-  CreateSkillDto,
-  UpdateSkillDto,
-} from '../dto/skill.dto';
+import { CreateSkillDto, UpdateSkillDto } from '../dto/skill.dto';
 import { SkillDocument } from '../interfaces/skill.interface';
 import { Skill } from '../models/skill.model';
 
@@ -20,7 +17,7 @@ export class SkillRepository {
       ...skill,
     });
   }
-    /**
+  /**
    * Find All Skills By User
    */
   public async findAllByUserId(
@@ -33,27 +30,27 @@ export class SkillRepository {
       createdAt: 1,
     });
   }
-    /**
+  /**
    * Find Skill By ID
    */
-  public async findById(
-    id: Types.ObjectId,
-  ): Promise<SkillDocument | null> {
-    return Skill.findById(id);
-  }
-    /**
+  // public async findById(
+  //   id: Types.ObjectId,
+  // ): Promise<SkillDocument | null> {
+  //   return Skill.findById(id);
+  // }
+  /**
    * Find Skill By ID And User
    */
   public async findByIdAndUserId(
-    id: Types.ObjectId,
+    skillId: Types.ObjectId,
     userId: Types.ObjectId,
   ): Promise<SkillDocument | null> {
     return Skill.findOne({
-      _id: id,
+      _id: skillId,
       userId,
     });
   }
-    /**
+  /**
    * Update Skill
    */
   public async update(
@@ -74,7 +71,7 @@ export class SkillRepository {
       },
     );
   }
-    /**
+  /**
    * Delete Skill
    */
   public async delete(
@@ -86,4 +83,4 @@ export class SkillRepository {
       userId,
     });
   }
-  }
+}

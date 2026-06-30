@@ -1,9 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-import {
-  SkillCategory,
-  SkillDocument,
-} from '../interfaces/skill.interface';
+import { SkillCategory, SkillDocument } from '../interfaces/skill.interface';
 
 const skillSchema = new Schema<SkillDocument>(
   {
@@ -48,7 +45,9 @@ const skillSchema = new Schema<SkillDocument>(
   },
 );
 
-export const Skill = model<SkillDocument>(
-  'Skill',
-  skillSchema,
-);
+skillSchema.index({
+  userId: 1,
+  displayOrder: 1,
+});
+
+export const Skill = model<SkillDocument>('Skill', skillSchema);

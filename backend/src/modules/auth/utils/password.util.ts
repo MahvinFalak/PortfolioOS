@@ -8,9 +8,7 @@ const SALT_ROUNDS = 12;
  * @param password User's plain text password.
  * @returns Hashed password.
  */
-export const hashPassword = async (
-  password: string,
-): Promise<string> => {
+export const hashPassword = async (password: string): Promise<string> => {
   return bcrypt.hash(password, SALT_ROUNDS);
 };
 

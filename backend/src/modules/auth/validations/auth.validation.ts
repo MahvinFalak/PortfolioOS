@@ -1,10 +1,7 @@
 import { z } from 'zod';
 
 export const registerSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .email('Please provide a valid email address.'),
+  email: z.string().trim().email('Please provide a valid email address.'),
 
   password: z
     .string()
@@ -17,14 +14,9 @@ export const registerSchema = z.object({
 });
 
 export const loginSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .email('Please provide a valid email address.'),
+  email: z.string().trim().email('Please provide a valid email address.'),
 
-  password: z
-    .string()
-    .min(1, 'Password is required.'),
+  password: z.string().min(1, 'Password is required.'),
 });
 /**
  * Refresh Token Validation Schema
@@ -41,9 +33,6 @@ export const refreshTokenSchema = z.object({
   }),
 });
 
-
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
-export type RefreshTokenInput = z.infer<
-  typeof refreshTokenSchema
->;
+export type RefreshTokenInput = z.infer<typeof refreshTokenSchema>;

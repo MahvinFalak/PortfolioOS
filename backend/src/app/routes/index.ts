@@ -5,6 +5,8 @@ import authRoutes from '../../modules/auth/routes/auth.routes';
 import profileRoutes from '../../modules/profile/routes';
 
 import skillRoutes from '../../modules/skills/routes';
+import experienceRoutes from '../../modules/experience/routes';
+import projectRoutes from '../../modules/projects/routes';
 
 const router = Router();
 
@@ -30,4 +32,13 @@ router.use('/api/profile', profileRoutes);
  * Skills
  */
 router.use('/api/skills', skillRoutes);
+/**
+ * Experience
+ */
+router.use('/api/experiences', experienceRoutes);
+
+/**
+ * Projects
+ */
+router.use('/api/projects', projectRoutes);
 export default router;
