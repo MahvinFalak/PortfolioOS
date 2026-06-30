@@ -13,6 +13,7 @@ import socialLinkRoutes from '../../modules/social-links/routes';
 import educationRoutes from '../../modules/education/routes';
 import achievementRoutes from '../../modules/achievements/routes';
 import websiteSettingsRoutes from '../../modules/website-settings/routes';
+import adminDashboardRoutes from '../../modules/admin-dashboard/routes';
 
 const router = Router();
 
@@ -73,5 +74,9 @@ router.use('/api/achievements', achievementRoutes);
  * Website Settings
  */
 router.use('/api/website-settings', websiteSettingsRoutes);
+/**
+ * Admin Dashboard
+ */
+router.use('/api/admin-dashboard', adminDashboardRoutes);
 
 export default router;
