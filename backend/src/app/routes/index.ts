@@ -11,6 +11,7 @@ import resumeRoutes from '../../modules/resume/routes';
 import certificationRoutes from '../../modules/certifications/routes';
 import socialLinkRoutes from '../../modules/social-links/routes';
 import educationRoutes from '../../modules/education/routes';
+import achievementRoutes from '../../modules/achievements/routes';
 
 const router = Router();
 
@@ -63,6 +64,9 @@ router.use('/api/social-links', socialLinkRoutes);
  * Education
  */
 router.use('/api/education', educationRoutes);
-
+/**
+ * Achievements
+ */
+router.use('/api/achievements', achievementRoutes);
 
 export default router;
