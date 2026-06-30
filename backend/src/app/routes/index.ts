@@ -7,6 +7,7 @@ import profileRoutes from '../../modules/profile/routes';
 import skillRoutes from '../../modules/skills/routes';
 import experienceRoutes from '../../modules/experience/routes';
 import projectRoutes from '../../modules/projects/routes';
+import resumeRoutes from '../../modules/resume/routes';
 
 const router = Router();
 
@@ -41,4 +42,9 @@ router.use('/api/experiences', experienceRoutes);
  * Projects
  */
 router.use('/api/projects', projectRoutes);
+
+/**
+ * Resume
+ */
+router.use('/api/resume', resumeRoutes);
 export default router;
