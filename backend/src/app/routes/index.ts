@@ -8,6 +8,7 @@ import skillRoutes from '../../modules/skills/routes';
 import experienceRoutes from '../../modules/experience/routes';
 import projectRoutes from '../../modules/projects/routes';
 import resumeRoutes from '../../modules/resume/routes';
+import certificationRoutes from '../../modules/certifications/routes';
 
 const router = Router();
 
@@ -47,4 +48,9 @@ router.use('/api/projects', projectRoutes);
  * Resume
  */
 router.use('/api/resume', resumeRoutes);
+
+/**
+ * Certifications
+ */
+router.use('/api/certifications', certificationRoutes);
 export default router;
