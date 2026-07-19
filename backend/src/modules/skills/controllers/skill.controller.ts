@@ -60,7 +60,8 @@ export class SkillController {
     next: NextFunction,
   ): Promise<void> => {
     try {
-      const skills = await this.skillService.getSkills(req.user!.userId);
+      const skills = await this.skillService.getSkills(
+        req.user!.userId);
 
       res.status(200).json({
         success: true,
@@ -82,8 +83,8 @@ export class SkillController {
   ): Promise<void> => {
     try {
       const skill = await this.skillService.getSkillById(
-        req.user!.userId,
         req.params.id,
+        req.user!.userId,
       );
 
       res.status(200).json({
@@ -114,8 +115,8 @@ export class SkillController {
       const skillDto: UpdateSkillDto = validationResult.data;
 
       const skill = await this.skillService.updateSkill(
-        req.user!.userId,
         req.params.id,
+        req.user!.userId,
         skillDto,
       );
 
@@ -138,7 +139,9 @@ export class SkillController {
     next: NextFunction,
   ): Promise<void> => {
     try {
-      await this.skillService.deleteSkill(req.user!.userId, req.params.id);
+      await this.skillService.deleteSkill(
+        req.params.id,
+        req.user!.userId,);
 
       res.status(200).json({
         success: true,

@@ -57,15 +57,13 @@ export class SkillService {
    * Get Skill By ID
    */
   public async getSkillById(
-    skillId: string,
+    id: string,
     userId: string,
   ): Promise<SkillResponseDto> {
     const skill = await this.skillRepository.findByIdAndUserId(
-      new Types.ObjectId(skillId),
+      new Types.ObjectId(id),
       new Types.ObjectId(userId),
-
     );
-
     if (!skill) {
       throw new NotFoundException('Skill not found.');
     }
@@ -76,12 +74,12 @@ export class SkillService {
    * Update Skill
    */
   public async updateSkill(
-    skillId: string,
+    id: string,
     userId: string,
     skillDto: UpdateSkillDto,
   ): Promise<SkillResponseDto> {
     const skill = await this.skillRepository.update(
-      new Types.ObjectId(skillId),
+      new Types.ObjectId(id),
       new Types.ObjectId(userId),
       skillDto,
     );
@@ -95,9 +93,9 @@ export class SkillService {
   /**
    * Delete Skill
    */
-  public async deleteSkill(skillId: string,userId: string): Promise<void> {
+  public async deleteSkill(id: string,userId: string): Promise<void> {
     const skill = await this.skillRepository.delete(
-      new Types.ObjectId(skillId),
+      new Types.ObjectId(id),
       new Types.ObjectId(userId),
 
     );

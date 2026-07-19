@@ -45,6 +45,7 @@ export class ExperienceRepository {
     id: Types.ObjectId,
     userId: Types.ObjectId,
   ): Promise<ExperienceDocument | null> {
+        console.log(Experience,"repository ")
     return Experience.findOne({
       _id: id,
       userId,

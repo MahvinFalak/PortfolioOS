@@ -42,13 +42,14 @@ export class SkillRepository {
    * Find Skill By ID And User
    */
   public async findByIdAndUserId(
-    skillId: Types.ObjectId,
+    id: Types.ObjectId,
     userId: Types.ObjectId,
   ): Promise<SkillDocument | null> {
+    console.log(Skill,"repository ")
     return Skill.findOne({
-      _id: skillId,
+      _id: id,
       userId,
-    });
+    }).exec();
   }
   /**
    * Update Skill
